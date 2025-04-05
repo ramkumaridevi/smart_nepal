@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "409238441615",
+    "project_id": "smart-nepal-2f857",
+    "storage_bucket": "smart-nepal-2f857.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409238441615:android:2aaf3f21526a4be1d92afa",
+        "android_client_info": {
+          "package_name": "com.smart_nepal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7wRfMPi7xrXrTpqcBOvyfR59L6uY2hec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
