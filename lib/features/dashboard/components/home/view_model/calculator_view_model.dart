@@ -8,7 +8,7 @@ import 'package:smart_nepal/core/utils/app_utils.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
 import 'package:nepali_utils/nepali_utils.dart';
 
-class DashboardViewModel extends ChangeNotifier {
+class CalculatorViewModel extends ChangeNotifier {
 //Simple Interest
   final TextEditingController principalController = TextEditingController();
   final TextEditingController rateController = TextEditingController();

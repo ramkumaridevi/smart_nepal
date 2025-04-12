@@ -1,46 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_nepal/features/dashboard/presentation/view/compound_interest_screen.dart';
-import 'package:smart_nepal/features/dashboard/presentation/view/dashboard.dart';
-import 'package:smart_nepal/features/dashboard/presentation/view/error_screen.dart';
-import 'package:smart_nepal/features/dashboard/presentation/view/simple_interest_screen.dart';
+import 'package:smart_nepal/features/dashboard/components/home/component/calculator/calculator_screen.dart';
+import 'package:smart_nepal/features/dashboard/components/home/component/calculator/compound_interest_screen.dart';
+import 'package:smart_nepal/features/dashboard/components/home/component/calculator/simple_interest_screen.dart';
+import 'package:smart_nepal/features/dashboard/dashboard.dart';
 
 class AppRouter {
-  static GoRouter router = GoRouter(
+  static final GoRouter router = GoRouter(
     routes: [
       // Dashboard Screen (Default Route)
       GoRoute(
         path: "/",
-        builder: (context, state) => DashboardScreen(),
+        builder: (context, state) => const Dashboard(),
       ),
 
-      // Simple Interest Screen with Right-to-Left Animation
+      // Calculator Screen with nested routes
       GoRoute(
-        path: "/simple_interest_screen",
+        path: "/calculator",
         pageBuilder: (context, state) => _customPageTransition(
           context,
-          SimpleInterestScreen(),
+          const CalculatorScreen(),
         ),
-      ),
-
-      // Compound Interest Screen with Right-to-Left Animation
-      GoRoute(
-        path: "/compound_interest_screen",
-        pageBuilder: (context, state) => _customPageTransition(
-          context,
-          CompoundInterestScreen(),
-        ),
+        routes: [
+          // Nested Simple Interest Screen
+          GoRoute(
+            path: "simple_interest",
+            pageBuilder: (context, state) => _customPageTransition(
+              context,
+              const SimpleInterestScreen(),
+            ),
+          ),
+          
+          // Nested Compound Interest Screen
+          GoRoute(
+            path: "compound_interest",
+            pageBuilder: (context, state) => _customPageTransition(
+              context,
+              const CompoundInterestScreen(),
+            ),
+          ),
+        ],
       ),
     ],
     errorBuilder: (context, state) {
-      return ErrorScreen(
-          errorMessage: state.error?.message ?? 'An unknown error occurred');
+      return Text("Error");
     },
   );
 
   // Custom transition for right-to-left sliding animation
-  static Page<dynamic> _customPageTransition(
-      BuildContext context, Widget child) {
+  static Page<dynamic> _customPageTransition(BuildContext context, Widget child) {
     return CustomTransitionPage(
       child: child,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -49,7 +57,8 @@ class AppRouter {
             begin: const Offset(1, 0), // Start from right
             end: Offset.zero, // Move to center
           ).animate(
-              CurvedAnimation(parent: animation, curve: Curves.easeInOut)),
+            CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+          ),
           child: child,
         );
       },

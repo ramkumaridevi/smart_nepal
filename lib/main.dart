@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:smart_nepal/routes/app_router.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_nepal/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:smart_nepal/core/utils/app_context.dart';
+import 'package:smart_nepal/features/dashboard/components/home/view_model/calculator_view_model.dart';
+import 'package:smart_nepal/routes/app_router.dart';
 
+// flutter clean;flutter pub get;flutter build web --release;firebase deploy --only hosting
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,12 +15,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => DashboardViewModel())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => CalculatorViewModel()),
+      ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerDelegate: AppRouter.router.routerDelegate,
         routeInformationProvider: AppRouter.router.routeInformationProvider,
         routeInformationParser: AppRouter.router.routeInformationParser,
+        builder: (context, child) {
+          AppContext().setContext(context);
+          return child!;
+        },
       ),
     );
   }
